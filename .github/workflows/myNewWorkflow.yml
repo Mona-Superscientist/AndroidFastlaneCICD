@@ -1,0 +1,32 @@
+name: Shahry customer app debug deployment
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  build-with-specific-comment:
+    if: ${{ github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout Git Repository
+        if: contains(github.event.comment.body, 'Upload to App tester')   # check the comment if it contains the keywords
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+
+      - name: install firebase tool
+        run: |
+          yarn global add firebase-tools
+          echo "::add-path::$(yarn global bin)"
+
+      - name: setup fastlane
+        run: bundle install
+
+      - name: distribute to firebase
+        run: bundle exec fastlane android firebase_distribution
+        env:
+          FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
