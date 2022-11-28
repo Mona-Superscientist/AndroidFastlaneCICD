@@ -1,18 +1,19 @@
 name: test
 on:
-   pull_request:
+  pull_request:
     types: [ labeled ]
 
 jobs:
-    build-with-specific-label:
-        if: ${{ github.event.label.name == 'bug' }}
+  build-with-specific-label:
+    if: ${{ github.event.label.name == 'bug' }}
+    runs-on: ubuntu-latest
 
-        steps:
-          - name: checkout Git Repository
-          uses: actions/checkout@v2
+    steps:
+      - name: checkout Git Repository
+        uses: actions/checkout@v2
 
-         - uses: actions/setup-ruby@v1
-          with:
+      - uses: actions/setup-ruby@v1
+        with:
           ruby-version: '2.7'
 
       - name: install firebase tool
