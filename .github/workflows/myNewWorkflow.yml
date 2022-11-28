@@ -1,11 +1,11 @@
-name: Shahry customer app debug deployment
+name: test
 on:
-  issue_comment:
-    types: [created, edited]
+   pull_request:
+    types: [ labeled ]
 
 jobs:
-  build-with-specific-comment:
-    if: (${{ github.event.issue.pull_request }} && contains(github.event.comment.body, 'Upload to App tester'))
+  build-with-specific-label:
+    if: ${{ github.event.label.name == 'bug' }}
     runs-on: ubuntu-latest
 
     steps:
