@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-with-specific-comment:
-    if: ${{ github.event.issue.pull_request }} && contains(github.event.comment.body, 'Upload to App tester')
+    if: (${{ github.event.issue.pull_request }} && contains(github.event.comment.body, 'Upload to App tester'))
     runs-on: ubuntu-latest
 
     steps:
