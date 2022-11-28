@@ -1,0 +1,27 @@
+
+
+name: testComment
+on:
+  issue_comment:
+    types: [ created, updated ]
+
+jobs:
+  build-with-specific-label:
+    if: ${{ github.event.issue.pull_request }}
+    if: contains(github.event.comment.body, 'Upload to App tester')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout Git Repository
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+
+      - name: install firebase tool
+        run: |
+          yarn global add firebase-tools
+          echo "::add-path::$(yarn global bin)"
+      - name: setup fastlane
+        run: bundle install
