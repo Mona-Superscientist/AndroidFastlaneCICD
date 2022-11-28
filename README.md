@@ -57,3 +57,5 @@ A sample repository to demonstrate the Automate publishing app to the _Google Pl
 - [Fastlane](https://fastlane.tools/)
 - [GitHub Actions CI/CD](https://github.com/features/actions)
 - [Firebase App Distribution](https://firebase.google.com/docs/app-distribution)
+
+-----
